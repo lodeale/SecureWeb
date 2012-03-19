@@ -4,3 +4,17 @@ Autor: Alejandro Zapiola
 
 Busca distintos patrones en los métodos GET y POST, para filtrar y evitar todo tipo de caracteres inecesarios.
 
+Como utilizo?
+------------
+
+Al principio de la página que quiero asegurar pongo esto:
+
+	$sec = new Auditor();
+	if($sec->test()):
+		$sec->chance("active");
+		exit();
+	endif; 
+
+Primero instancio Auditor, luego con el condicional verifico si pasa el test(), en caso que pase pongo de forma activa o pasiva el mensaje y un exit() para terminar definitivamente. En caso que devuelva FALSE el test() entonces saltara el condicional.
+
+
