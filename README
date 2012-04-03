@@ -4,6 +4,12 @@ Autor: Alejandro Zapiola
 
 Busca distintos patrones en los métodos GET y POST, para filtrar y evitar todo tipo de caracteres inecesarios.
 
+Warning:
+-------
+
+La forma passive es vulnerable a injection SQL.
+
+
 Como utilizo?
 ------------
 
