@@ -1,11 +1,11 @@
 <?php
 /*
- * modulo de seguridad para filtrado de xss e InjecciÃ³n SQL
+ * modulo de seguridad para filtrado de xss e Injección SQL
  */
  
  abstract class patrones{
  	public $VULN = FALSE;
-	protected $pat = array("--","\*","0x","\(","\)",">","<","\'","\"");
+	protected $pat = array("\*","0x","\(","\)",">","<","\'","\"");
 	//protected $pat = array("\W");
  }
  
@@ -24,6 +24,8 @@ class Auditor extends VarTest{
  	/*
  	 * Test version 3.0
  	 */ 	
+ 	 
+ 	public $coinci;
 	function test(){
 		if ($this->audit) {
 			foreach(array($_GET,$_POST) as $method):
@@ -31,7 +33,7 @@ class Auditor extends VarTest{
 					if(isset($method[$kget])):
 					 	$tq = $method[$kget];
 					 	foreach($this->pat as $patron):
-					 		if(preg_match($patron,$tq)):
+					 		if(preg_match("/$patron/",$tq,$this->coinci)):
 					 			$this->VULN = TRUE;
 					 			return $this->VULN;
 					 		else:
@@ -64,7 +66,7 @@ class Auditor extends VarTest{
 			default:
 				$sus = '\\';
 				/*
-				 * Reemplaza en el mÃ©todo GET
+				 * Reemplaza en el método GET
 				 * las variables vulnerables.
 				 */
 				foreach($_GET as $kget=>$vget):
@@ -75,7 +77,7 @@ class Auditor extends VarTest{
 					endif;
 				endforeach;
 				/*
-				 * Reemplaza en el mÃ©todo POST 
+				 * Reemplaza en el método POST 
 				 * las variables vulnerables
 				 */
 				foreach($_POST as $kget=>$vget):
