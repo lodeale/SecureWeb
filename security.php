@@ -5,7 +5,7 @@
  
  abstract class patrones{
  	public $VULN = FALSE;
-	protected $pat = array("\*","0x","\(","\)",">","<","\'","\"");
+	protected $pat = array("\*","0x","\(","\)",">","<","\'","\"",",","..\/");
 	//protected $pat = array("\W");
  }
  
@@ -54,9 +54,9 @@ class Auditor extends VarTest{
  	 function chance($type="active"){
  		switch($type):
  			case "active":
-	 			echo "<div id='error' style='position:absolute; top:200px;left:50%;background-color:#111;color:#C60F00;width:300px;height:300px;'>";
+	 			echo "<div id='error' style='text-align:center;position:absolute; top:200px;left:30%;background-color:#666;color:#CCC;width:500px;height:300px;'>";
 				echo "<h3>WARNING: </h3>";
-				echo "Hacker está usted siendo investigado<hr>";
+				echo "Hacker esta usted siendo investigado<hr>";
 				echo "su Ip es: ".$_SERVER['REMOTE_ADDR']."<hr>";
 				echo "Metodo: ".$_SERVER['REQUEST_METHOD']."<hr>";
 				echo "Injection: ".$_SERVER['QUERY_STRING']."<hr>";
@@ -72,7 +72,7 @@ class Auditor extends VarTest{
 				foreach($_GET as $kget=>$vget):
 					if(isset($_GET[$kget])):
 					 	foreach($this->pat as $patron):
-					 		preg_replace("/$patron/",$sus.$patron,$_GET[$kget]);
+					 		$_GET[$kget] = preg_replace("/$patron/",$sus.$patron,$_GET[$kget]);
 					 	endforeach;
 					endif;
 				endforeach;
